@@ -1,15 +1,3 @@
-// import {createMap} from './mapmaker.js';
-// import {parseInput} from './parser.js';
-
-// export {convertPoints};
-
-// document.getElementById('convertpoints').onclick = function() {
-// 	convertPoints();
-// }
-// document.getElementById('convertjson').onclick = function() {
-// 	convertJson();
-// }
-
 function geoJsonToBigQuery(geojson) {
 	var coords = geojson["coordinates"][0];
 	// create the OpenLayers map element

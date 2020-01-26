@@ -1,18 +1,3 @@
-// import 'ol/ol.css';
-// import Feature from 'ol/Feature';
-// import Map from 'ol/Map';
-// import View from 'ol/View';
-// import {Projection,fromLonLat} from 'ol/proj';
-// import GeoJSON from 'ol/format/GeoJSON';
-// import Circle from 'ol/geom/Circle';
-// import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-// import {OSM, Vector as VectorSource} from 'ol/source';
-// import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
-
-// import ol from './lib/openlayers.js';
-
-// export  { createMap };
-
 var styles = {
   'Polygon': new ol.style.Style({
     stroke: new ol.style.Stroke({

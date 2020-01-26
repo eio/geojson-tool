@@ -1,7 +1,3 @@
-// import {Coordinates} from './lib/dms_conversion_logic.js';
-
-// export {parseInput};
-
 function parseInput(lat, lon) {
 	var coords = new Coordinates();
 	if (lat.length > 1) {
