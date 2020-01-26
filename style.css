@@ -1,0 +1,39 @@
+#map {
+  width: 99%;
+  height: 0px;
+  margin-bottom: 10px;
+}
+.coords {
+  margin: 4px;
+  padding: 10px;
+  background-color: #add8e6;
+}
+button {
+  cursor: pointer;
+}
+#buttons {
+  margin-left: 20px;
+}
+.submit {
+  margin-left: 10px;
+}
+.divider {
+  position: inline;
+  width: 100%;
+  border: 1px solid black;
+}
+.output {
+  margin-top: 10px;
+  border: 1px solid black;
+  padding: 5px;
+  background-color: #eef7fa;
+}
+#geojson_uf,
+#bigquery {
+  /* ensure text wraps within div
+  for unformatted strings */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
