@@ -43,18 +43,23 @@
       <br>
       <hr> <!-- "horizontal rule" dividing input section from output section -->
       <br>
-      <!-- the map to show the area -->
-      <div id="map" class="map"></div>
-      <!--
-        <pre> tells the browser engine that the content inside
-        is pre-formatted and it can be displayed without any modification.
-        This is necessary for our pre-formatted GeoJSON to display properly.
-      -->
-      GeoJSON: <button id="convertjson" class="submit" onclick="convertJson()">Convert GeoJSON Input</button>
-      <pre id="geojson" class="output" contenteditable="true"></pre>
-      GeoJSON (Unformatted):
-      <pre id="geojson_uf" class="output" contenteditable="true"></pre>
-      BigQuery:
-      <pre id="bigquery" class="output" contenteditable="true"></pre>
+      <div id="mapContainer">
+        <button id="downloadMap">Download Map Image</button>
+        <!-- the map to show the area -->
+        <div id="map" class="map"></div>
+      </div>
+      <div id="textContainer">
+        <!--
+          <pre> tells the browser engine that the content inside
+          is pre-formatted and it can be displayed without any modification.
+          This is necessary for our pre-formatted GeoJSON to display properly.
+        -->
+        GeoJSON: <button id="convertjson" class="submit" onclick="convertJson()">Convert GeoJSON Input</button>
+        <pre id="geojson" class="output" contenteditable="true"></pre>
+        GeoJSON (Unformatted):
+        <pre id="geojson_uf" class="output" contenteditable="true"></pre>
+        BigQuery:
+        <pre id="bigquery" class="output" contenteditable="true"></pre>
+      </div>
   </body>
 </html>

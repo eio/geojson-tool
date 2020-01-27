@@ -59,12 +59,21 @@ function parseCoordinateText(coord) {
 			direction = parts[3];
 		// otherwise, check for (degrees/minutes/direction)
 		} else if (parts.length == 3) {
-			// since there are 3 parts separated by spaces
-			// let's just hope that seconds were omitted intentionally
-			degrees = parts[0];
-			minutes = parts[1];
-			// keep seconds set to default (0)
-			direction = parts[3];
+			if (isAlpha(parts[2])) {
+				// let's hope that seconds were omitted intentionally
+				// as with: 110°4.21' W
+				degrees = parts[0];
+				minutes = parts[1];
+				// keep seconds set to default (0)
+				direction = parts[2];
+			} else {
+				// let's hope that direction was omitted intentionally
+				// as with: 36°57'9.12"
+				degrees = parts[0];
+				minutes = parts[1];
+				seconds = parts[2];
+				// keep direction set to default (null)
+			}
 		} else {
 			alert("More than 4 parts entered for single coordinate.\nExpect failure.")
 		}
@@ -79,7 +88,6 @@ function parseCoordinateText(coord) {
 			// assume format of: 45W, 25N
 			degrees = parseFloat(parts[0])
 			direction = parts[0].replace(/[^a-z]/gi, '');
-						console.log('what', parts[0], degrees, direction)
 		} else if (parts.length == 2) {
 			// check for format of: 45 W, 25 N
 			if (isNumber(parts[0]) && isAlpha(parts[1])) {

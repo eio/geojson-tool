@@ -1,7 +1,14 @@
+#mapContainer {
+/*  resize: both;
+  overflow: auto;*/
+  height: 0px;
+}
 #map {
   width: 99%;
   height: 0px;
-  margin-bottom: 10px;
+}
+#downloadMap {
+  visibility: hidden;
 }
 .coords {
   margin: 4px;
@@ -10,6 +17,23 @@
 }
 button {
   cursor: pointer;
+  outline: none;
+  z-index: 1000;
+  border-radius: 5px;
+  color: black;
+  font-weight: bold;
+  background: #e8f4f8;
+  box-shadow: 3px 3px rgba(0,0,0,0.7);
+}
+button:hover {
+  color: white;
+  background: #72bcd4;
+  box-shadow: 2px 2px rgba(0,0,0,0.9);
+}
+button:active {
+  color: white;
+  background: #4ba9c8;
+  box-shadow: 1px 1px rgba(0,0,0,1.0);
 }
 #buttons {
   margin-left: 20px;

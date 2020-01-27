@@ -1,5 +1,7 @@
 function geoJsonToBigQuery(geojson) {
-	var coords = geojson["coordinates"][0];
+	// for now, only support one polygon feature at a time
+	var geometry = geojson["features"][0]["geometry"];
+	var coords = geometry["coordinates"][0];
 	// create the OpenLayers map element
 	// with GeoJSON object visualized
 	createMap(coords);
@@ -57,9 +59,18 @@ function convertPoints() {
 		alert("Warning: polygons require at least 4 points.")
 	}
 	var geojson = {
-        "type": "Polygon",
-        "coordinates": [ coords ]
-    }
+		"type": "FeatureCollection",
+		"features": [
+		    {
+				"type": "Feature",
+				"properties": {},
+				"geometry": {
+					"type": "Polygon",
+					"coordinates": [ coords ]
+				}
+		    }
+		]
+	};
     geoJsonToBigQuery(geojson);
 }
 function convertJson() {
@@ -70,7 +81,17 @@ function convertJson() {
 	var geojson = JSON.parse(jsonstring);
 	// check for full GeoJSON (if copied directly from http://geojson.io/)
 	if (geojson["type"] == "FeatureCollection" && geojson["features"] != undefined) {
-		geojson = geojson["features"][0]["geometry"];
+		// geojson is formatted correctly already
+		// so we don't need to do anything
+	} else if (geojson["type"] == "Feature" && gejson["geometry"] != undefined) {
+		geojson = {
+			"type": "FeatureCollection",
+			"features": [
+			    geojson
+			]
+		}
+	} else {
+		alert("Warning: GeoJSON is not formatted correctly.")
 	}
 	geoJsonToBigQuery(geojson);
 }

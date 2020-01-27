@@ -2,11 +2,11 @@ var styles = {
   'Polygon': new ol.style.Style({
     stroke: new ol.style.Stroke({
       // lineDash: [4],
-      color: 'blue',
-      width: 2
+      color: 'black', // geojson.io uses: '#555555'
+      width: 1.8
     }),
     fill: new ol.style.Fill({
-      color: 'rgba(0, 0, 255, 0.1)'
+      color: 'rgba(0, 0, 0, 0.25)'
     })
   })
 };
@@ -72,7 +72,9 @@ var createMap = function(coords) {
     zoom: 2
   });
 
-  document.getElementById('map').style.height = '400px';
+  var mapHeight = '500px';
+  document.getElementById('map').style.height = mapHeight;
+  document.getElementById('mapContainer').style.minHeight = mapHeight;
   var map = new ol.Map({
     layers: [
       new ol.layer.Tile({
@@ -85,4 +87,54 @@ var createMap = function(coords) {
     view: view
   });
   // view.centerOn(fromLonLat(coords[0], "EPSG:3857"), map.getSize(), [570, 500]);
+
+  // shift the text content down to avoid the map
+  document.getElementById('textContainer').style.marginTop = '50px';
+
+  // set up the "Download Map Image" button
+  var downloadLink = document.getElementById('downloadMap');
+  downloadLink.style.visibility = 'visible';
+  downloadLink.style.marginBottom = '10px';
+  downloadLink.onclick = function() {
+    // get <canvas> elements created by OpenLayers
+    var canvases = document.getElementsByTagName('canvas');
+    var layer1 = canvases[0];
+    var layer2 = canvases[1];
+    // generate one image from combined map and GeoJSON layers
+    var imgURI = overlayCanvases(layer1, layer2);
+    // create an invisible "link" to initiate the download
+    var link = document.createElement("a");
+    // specify a name for the image file to be downloaded as
+    link.download = 'area_of_interest.png';
+    link.href = imgURI;
+    // add the invisible "link" to the DOM so it can be "clicked"
+    document.body.appendChild(link);
+    // "click" the invisible link
+    link.click();
+    // remove the invisible "link" from the DOM
+    document.body.removeChild(link);
+    // K.O.
+    delete link;
+  }
 }
+
+// combine two <canvas> HTML elements into one image for download:
+// one layer is the map
+// one layer is the visualized GeoJSON
+var overlayCanvases = function(cnv1, cnv2) {
+  // https://stackoverflow.com/questions/38851963/how-to-combine-3-canvas-html-elements-into-1-image-file-using-javascript-jquery
+  var newCanvas = document.createElement('canvas');
+  var ctx = newCanvas.getContext('2d');
+  // assumes each canvas has the same dimensions
+  var width = cnv1.width;
+  var height = cnv1.height;
+  newCanvas.width = width;
+  newCanvas.height = height;
+
+  [cnv1, cnv2].forEach(function(n) {
+      ctx.beginPath();
+      ctx.drawImage(n, 0, 0, width, height);
+  });
+
+  return newCanvas.toDataURL("image/png");
+};
