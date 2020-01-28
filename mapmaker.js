@@ -133,7 +133,9 @@ var overlayCanvases = function(cnv1, cnv2) {
 
   [cnv1, cnv2].forEach(function(n) {
       ctx.beginPath();
-      ctx.drawImage(n, 0, 0, width, height);
+      if (n != undefined) {
+        ctx.drawImage(n, 0, 0, width, height);
+      }
   });
 
   return newCanvas.toDataURL("image/png");
