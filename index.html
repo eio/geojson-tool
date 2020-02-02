@@ -5,7 +5,8 @@
     <title> GeoJSON Conversion Tool </title>
     <meta charset="utf-8">
     <!-- css -->
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link rel="stylesheet" href="css/toggle.css" type="text/css">
     <link rel="stylesheet" href="lib/openlayers.css" type="text/css">
     <!-- external scripts -->
     <script src="lib/openlayers.js"></script>
@@ -13,32 +14,45 @@
     <!-------------------->
     <!-- custom scripts -->
     <!-------------------->
-    <script src="converter.js"></script>
-    <script src="mapmaker.js"></script>
-    <script src="parser.js"></script>
+    <script src="js/converter.js"></script>
+    <script src="js/mapmaker.js"></script>
+    <script src="js/parser.js"></script>
     <!-- simple ui script -->
     <script>
       function addPoint() {
         var points = document.getElementsByClassName("coords").length;
-        var coords = '<div class="coords">\
-          <span class="lat">Latitude: <input type="text" name="lat_'+points+'"></span><br>\
-          <span class="lon">Longitude: <input type="text" name="lon_'+points+'"></span><br>\
-        </div>';
-        document.getElementById('latlons').insertAdjacentHTML('beforeend', coords);
+        var coords = "<div class='coords'>\
+          <span class='lat'>Latitude:  <input type='text' name='lat_'"+points+"'></span><br>\
+          <span class='lon'>Longitude: <input type='text' name='lon_'"+points+"'></span><br>\
+        </div>";
+        document.getElementById("latlons").insertAdjacentHTML("beforeend", coords);
       }
     </script>
   </head>
   <body>
     <div id="latlons">
       <div class="coords">
-        <span class="lat">Latitude: <input type="text" name="lat_0" value="36°57'9&#034; N"></span><br>
-        <span class="lon">Longitude: <input type="text" name="lon_0" value="110°4'21&#034; W"></span><br>
+        <span class="lat">Latitude: <input type="text" name="lat_0" value="36°57"9&#034; N"></span><br>
+        <span class="lon">Longitude: <input type="text" name="lon_0" value="110°4"21&#034; W"></span><br>
       </div>
     </div>
     <br>
     <div id="buttons">
         <button id="addpoint" onclick="addPoint()">Add Point</button>
         <button id="convertpoints" class="submit" onclick="convertPoints()">Convert Points Input</button>
+        <div id="togglecontainer">
+          <div id="systemtoggle">
+            <div id="epsg3857label">EPSG:3857</div>
+            <label class="switch">
+              <div id="togglelabel">Input Coordinate System</div>
+              <input id="EPSG4326" type="checkbox" checked>
+              <span class="slider round"></span>
+            </label>
+            <div id="epsg4326label">EPSG:4326
+              <br>&nbsp;&nbsp;&nbsp;<i>(default)</i>
+            </div>
+          </div>
+        </div>
       </div>
       <br>
       <hr> <!-- "horizontal rule" dividing input section from output section -->
@@ -58,7 +72,7 @@
         <pre id="geojson" class="output" contenteditable="true"></pre>
         GeoJSON (Unformatted):
         <pre id="geojson_uf" class="output" contenteditable="true"></pre>
-        BigQuery:
+        BigQuery: <button id="convertbigquery" class="submit" onclick="convertBigQuery()">Convert BigQuery Input</button>
         <pre id="bigquery" class="output" contenteditable="true"></pre>
       </div>
   </body>

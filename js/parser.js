@@ -1,20 +1,40 @@
 function parseInput(lat, lon) {
-	var coords = new Coordinates();
-	if (lat.length > 1) {
-		var plat = parseCoordinateText(lat);
-		// convert DMS input to decimal
-		coords.latitude.setDMS(plat['degrees'],plat['minutes'],plat['seconds'],plat['direction']);
-		lat = coords.getLatitude();
-	}
-	if (lon.length > 1) {
-		var plon = parseCoordinateText(lon);
-		// convert DMS input to decimal
-		coords.longitude.setDMS(plon['degrees'],plon['minutes'],plon['seconds'],plon['direction']);
-		lon = coords.getLongitude();
+	var latitude = null;
+	var longitude = null;
+	if (document.getElementById('EPSG4326').checked == true) {
+		// handle standard EPSG:4326 coords
+		// ex: [ 4°4'9.726", 50°26'48.144" ]
+		var coords = new Coordinates();
+		if (lat.length > 1) {
+			var plat = parseCoordinateText(lat);
+			// convert DMS input to decimal
+			coords.latitude.setDMS(plat['degrees'],plat['minutes'],plat['seconds'],plat['direction']);
+			latitude = coords.getLatitude();
+		}
+		if (lon.length > 1) {
+			var plon = parseCoordinateText(lon);
+			// convert DMS input to decimal
+			coords.longitude.setDMS(plon['degrees'],plon['minutes'],plon['seconds'],plon['direction']);
+			longitude = coords.getLongitude();
+		}
+	} else {
+		// handle EPSG:3857 coords
+		// ex: [ 453000, 6524000 ]
+		longitude = parseFloat(lon)
+		latitude = parseFloat(lat)
+		// check if direction char has been provided
+		var londir = lon.replace(/[^a-z]/gi, '');
+		if (londir == 'W') {
+			longitude = -longitude;
+		}
+		var latdir = lat.replace(/[^a-z]/gi, '');
+		if (latdir == 'S') {
+			latitude = -latitude;
+		}
 	}
 	return {
-		'lat': lat,
-		'lon': lon
+		'lat': latitude,
+		'lon': longitude
 	}
 }
 function isAlpha(value){

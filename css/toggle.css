@@ -1,0 +1,116 @@
+/* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch */
+
+#systemtoggle {
+  position: relative;
+  display: inline-block;
+  float: right;
+  top: 5px;
+  padding-top: 10px;
+  padding-left: 36px;
+  padding-right: 36px;
+  margin-left: 15px;
+  margin-right: 5px;
+  font-size: 50%;
+  border: 2px solid rgba(0,0,0,0.7);
+  box-shadow: 3px 3px rgba(0,0,0,0.7);
+  border-radius: 5px;
+  opacity: 0.2;
+  cursor: default;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+
+#systemtoggle:hover {
+  opacity: 0.9;
+}
+
+#systemtoggle div {
+  position: absolute;
+  font-style: normal;
+}
+
+#togglelabel {
+  top: -22px;
+  left: -31px;
+  font-size: 160%;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+#epsg3857label {
+  left: 3px;
+  top: 20px;
+}
+
+#epsg4326label {
+  right: 3px;
+  top: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 34px;
+  -webkit-transform: scale(0.6);
+  -ms-transform: scale(0.6);
+  transform: scale(0.6);
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #72bcd4;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #add8e6;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(46px);
+  -ms-transform: translateX(46px);
+  transform: translateX(46px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
