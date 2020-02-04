@@ -75,7 +75,6 @@ function convertJson() {
 		// and convert if necessary
 		console.log(document.getElementById('EPSG4326').checked)
 		if (document.getElementById('EPSG4326').checked != true) {
-			console.log("wtf")
 			geojson = convertEPSG3857to4326(geojson);
 		}
 		geoJsonToOutput(geojson);
@@ -87,11 +86,15 @@ function convertJson() {
 // starting point for `Convert BigQuery Input` button
 function convertBigQuery() {
 	var bqstring = document.getElementById("bigquery").textContent;
-	bqstring = bqstring.replace('POLYGON((','').replace('))','');
+	// get rid of the unimportant BigQuery syntax parts
+	bqstring = bqstring.replace('POLYGON','').replace('((','').replace('))','');
 	var points = bqstring.split(',');
 	var coords = [];
 	for (var i=0; i < points.length; i++) {
 		var pair = points[i];
+		// trim any trailing whitespace
+		pair = pair.trim();
+		// separate lon and lat
 		pair = pair.split(' ');
 		var lon = pair[0];
 		var lat = pair[1];
