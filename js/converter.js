@@ -94,10 +94,13 @@ function convertBigQuery() {
 		var pair = points[i];
 		// trim any trailing whitespace
 		pair = pair.trim();
-		// separate lon and lat
-		pair = pair.split(' ');
-		var lon = pair[0];
-		var lat = pair[1];
+		// separate lon and lat via regexp
+		// split on one (or more) space characters
+		pair = pair.split(/\s+/);
+		console.log()
+		var lon = parseFloat(pair[0]);
+		var lat = parseFloat(pair[1]);
+		console.log(lon, lat)
 		coords.push([lon,lat]);
 	}
 	var geojson = {
