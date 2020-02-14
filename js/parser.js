@@ -5,13 +5,13 @@ function parseInput(lat, lon) {
 		// handle standard EPSG:4326 coords
 		// ex: [ 4°4'9.726", 50°26'48.144" ]
 		var coords = new Coordinates();
-		if (lat.length > 1) {
+		if (lat.length > 0) {
 			var plat = parseCoordinateText(lat);
 			// convert DMS input to decimal
 			coords.latitude.setDMS(plat['degrees'],plat['minutes'],plat['seconds'],plat['direction']);
 			latitude = coords.getLatitude();
 		}
-		if (lon.length > 1) {
+		if (lon.length > 0) {
 			var plon = parseCoordinateText(lon);
 			// convert DMS input to decimal
 			coords.longitude.setDMS(plon['degrees'],plon['minutes'],plon['seconds'],plon['direction']);

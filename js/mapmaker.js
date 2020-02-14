@@ -72,7 +72,7 @@ var createMap = function(coords) {
     zoom: 2
   });
 
-  var mapHeight = '500px';
+  var mapHeight = '600px';
   document.getElementById('map').style.height = mapHeight;
   document.getElementById('mapContainer').style.minHeight = mapHeight;
   var map = new ol.Map({
