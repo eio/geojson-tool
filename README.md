@@ -22,7 +22,6 @@ Accepted formats for Lat/Lon pairs:
 	-110.0724
 	36
 
-Note that the list of `[Longitude,Latitude]` pairs in a GeoJSON Polygon must start and end with the same exact point in order to properly close the polygon. Failing to do this will result in a warning popup.
 
 ## Starting with GeoJSON
 

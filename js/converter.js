@@ -21,10 +21,12 @@ function convertPoints() {
 	// check if first and last points match
 	var firstll = JSON.stringify(coords[0]);
 	var lastll = JSON.stringify(coords[coords.length-1]);
-	// warn user about potential mistakes
-	// but carry on anyway
+	// enforce first and last points being the same
 	if (firstll != lastll) {
-		alert("Warning: first and last coordinate pairs do not match.")
+		// append first point to end of coords list
+		coords.push(coords[0]);
+		// alert("Warning: first and last coordinate pairs do not match.")
+
 	}
 	if (coords.length < 4) {
 		alert("Warning: polygons require at least 4 points.")
