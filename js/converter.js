@@ -63,19 +63,27 @@ function convertJson() {
 		if (geojson["type"] == "FeatureCollection" && geojson["features"] != undefined) {
 			// geojson is formatted correctly already
 			// so we don't need to do anything
-		} else if (geojson["type"] == "Feature" && gejson["geometry"] != undefined) {
+		} else if (geojson["type"] == "Feature" && geojson["geometry"] != undefined) {
 			geojson = {
 				"type": "FeatureCollection",
 				"features": [
-				    geojson
+					geojson
 				]
+			}
+		} else if (geojson["type"] == "Polygon" && geojson["coordinates"] != undefined) {
+			geojson = {
+				"type": "FeatureCollection",
+				"features": [{
+					"type": "Feature",
+					"properties": {},
+					"geometry": geojson
+				}]
 			}
 		} else {
 			alert("Warning: GeoJSON is not formatted correctly.")
 		}
 		// check switch toggle for input coordinate system
 		// and convert if necessary
-		console.log(document.getElementById('EPSG4326').checked)
 		if (document.getElementById('EPSG4326').checked != true) {
 			geojson = convertEPSG3857to4326(geojson);
 		}
@@ -83,7 +91,6 @@ function convertJson() {
 	} catch(error) {
 		alert("Warning: GeoJSON is not formatted correctly. \n" + error);
 	}
-
 }
 // starting point for `Convert BigQuery Input` button
 function convertBigQuery() {
