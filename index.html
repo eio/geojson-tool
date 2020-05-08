@@ -35,11 +35,17 @@
         <span class="lat">Latitude: <input type="text" name="lat_0" value="36°57'9&#034; N"></span><br>
         <span class="lon">Longitude: <input type="text" name="lon_0" value="110°4'21&#034; W"></span><br>
       </div>
+      <div class="pairs">
+        <p>Latitude and longitude pairs. Each will be paired up into a polygon. Delineate pairs by comma (,).</p>
+        <span class="lat">Latitudes: <input type="text" name="lats" value="36°57'9&#034; N, 37°57'9&#034; N"></span><br>
+        <span class="lon">Longitudes: <input type="text" name="lons" value="110°4'21&#034; W, 111°4'21&#034; W"></span><br>
+      </div>
     </div>
     <br>
     <div id="buttons">
         <button id="addpoint" onclick="addPoint()">Add Point</button>
         <button id="convertpoints" class="submit" onclick="convertPoints()">Convert Points Input</button>
+        <button id="convertpairs" class="submit" onclick="convertPairs()">Convert Pairs Input</button>
         <div id="togglecontainer">
           <div id="systemtoggle">
             <div id="epsg3857label">EPSG:3857</div>
