@@ -10,7 +10,7 @@
 #downloadMap {
   visibility: hidden;
 }
-.coords {
+.coords,.pairs {
   margin: 4px;
   padding: 10px;
   background-color: #add8e6;

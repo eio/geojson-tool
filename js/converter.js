@@ -31,6 +31,10 @@ function convertPoints() {
 	if (coords.length < 4) {
 		alert("Warning: polygons require at least 4 points.")
 	}
+	var geojson = toGeoJSON(normcoords);
+    geoJsonToOutput(geojson);
+}
+function toGeoJSON(coords) {
 	var geojson = {
 		"type": "FeatureCollection",
 		"features": [
@@ -49,7 +53,52 @@ function convertPoints() {
 	if (document.getElementById('EPSG4326').checked != true) {
 		geojson = convertEPSG3857to4326(geojson);
 	}
-    geoJsonToOutput(geojson);
+
+	return geojson;
+}
+// convertPairs works on pairs of latitudes and longitues to create a polygon.
+// Made to handle cases where people send a request like:
+//   LAT between -9.646536, 6.998524, LON between 94.51485, 140.9909
+function convertPairs() {
+	let lats = document.getElementsByName("lats")[0].value.split(","),
+		lons = document.getElementsByName("lons")[0].value.split(",");
+
+	if(lats.length !== lons.length) {
+		alert(
+			"not the equal number of latitudes("+ lats.length
+			+") and longitudes("+ lons.length +")");
+	}
+
+	let coords = [];
+	for(const lat of lats) {
+		for(const lon of lons) {
+			let ll = parseInput(lat, lon)
+			coords.push([ll.lon, ll.lat])
+		}
+	}
+	if (coords.length < 4) {
+		alert("Warning: polygons require at least 4 points.")
+	}
+	coords = normalizePolygon(coords);
+	coords.push(coords[0]) // Close polygon by looping back to itself
+
+	geoJsonToOutput(toGeoJSON(coords));
+}
+// Normalizes the order of changes in a polygon
+// Essentially, when you are making a polygon if you don't traverse
+// the changes in order you end up with coordinates crossing themselves,
+// turning them into a hour-glass shape - X.
+function normalizePolygon(coords) {
+	// A hard-coded fix for a box which is traversed by doing all lats and
+	// then all lons, by swapping 3/4 we'll get the changes in sequence
+	// and it'll look good
+	if (coords.length === 4) {
+		const third = coords[2];
+		coords[2] = coords[3];
+		coords[3] = third;
+	}
+
+	return coords;
 }
 // starting point for `Convert GeoJSON Input` button
 function convertJson() {
