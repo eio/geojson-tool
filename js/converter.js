@@ -31,7 +31,7 @@ function convertPoints() {
 	if (coords.length < 4) {
 		alert("Warning: polygons require at least 4 points.")
 	}
-	var geojson = toGeoJSON(normcoords);
+	var geojson = toGeoJSON(coords);
     geoJsonToOutput(geojson);
 }
 function toGeoJSON(coords) {
